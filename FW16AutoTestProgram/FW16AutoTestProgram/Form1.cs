@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Fw16;
 
 namespace FW16AutoTestProgram
 {
@@ -15,19 +16,6 @@ namespace FW16AutoTestProgram
         public Form1()
         {
             InitializeComponent();
-            timer1.Start();
-            timer1.Interval = 100;
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            label1.Text = DateTime.Now.ToString("HH:mm:ss");
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            label1.Text = "lol";
-            timer1.Interval *= 2;
         }
     }
 }
