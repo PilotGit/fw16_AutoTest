@@ -16,5 +16,10 @@ namespace FW16AutoTestProgram
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            label1.Text = "бл ин";
+        }
     }
 }
