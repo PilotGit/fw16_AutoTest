@@ -20,7 +20,12 @@ namespace FW16AutoTestProgram
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            label1.Text = DateTime.Now.ToString("HH:mm:ss")
+            label1.Text = DateTime.Now.ToString("HH:mm:ss");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            label1.Text = "lol";
         }
     }
 }
