@@ -15,11 +15,12 @@ namespace FW16AutoTestProgram
         public Form1()
         {
             InitializeComponent();
+            timer1.Start();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void timer1_Tick(object sender, EventArgs e)
         {
-            label1.Text = "бл ин";
+            label1.Text = DateTime.Now.ToString("HH:mm:ss");
         }
     }
 }
