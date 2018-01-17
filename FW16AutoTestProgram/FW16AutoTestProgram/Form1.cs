@@ -26,6 +26,7 @@ namespace FW16AutoTestProgram
         private void button1_Click(object sender, EventArgs e)
         {
             label1.Text = "lol";
+            timer1.Interval *= 2;
         }
     }
 }
