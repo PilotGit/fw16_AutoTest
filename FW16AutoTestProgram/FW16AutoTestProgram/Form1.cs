@@ -16,11 +16,18 @@ namespace FW16AutoTestProgram
         {
             InitializeComponent();
             timer1.Start();
+            timer1.Interval = 100;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             label1.Text = DateTime.Now.ToString("HH:mm:ss");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            label1.Text = "lol";
+            timer1.Interval *= 2;
         }
     }
 }
