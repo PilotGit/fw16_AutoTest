@@ -16,6 +16,7 @@ namespace FW16AutoTestProgram
         {
             InitializeComponent();
             timer1.Start();
+            timer1.Interval = 100;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
