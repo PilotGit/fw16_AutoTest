@@ -19,7 +19,7 @@ namespace FW16AutoTestProgram
 
         private void button1_Click(object sender, EventArgs e)
         {
-            label1.Text = "бл ин";
+            label1.Text = "я сделать";
         }
     }
 }
