@@ -15,6 +15,7 @@ namespace FW16AutoTestProgram
     {
 
         public EcrCtrl ecrCtrl;
+        public int[] counters = new int[22];
 
         public Form1()
         {
@@ -42,10 +43,29 @@ namespace FW16AutoTestProgram
             {
                 MessageBox.Show(excep.Message);
             }
+            catch(System.UnauthorizedAccessException excep)
+            {
+                MessageBox.Show(excep.Message);
+            }
         }
         void ShowInformation()
         {
 
+        }
+
+        void getCounterData(int column)
+        {
+            dataGridView2.RowCount = 22;
+            for (ushort i = 1; i <= 22; i++)
+            {
+                dataGridView2.Rows[i-1].Cells[column].Value = ecrCtrl.Info.GetCounter(i);
+                dataGridView2.Rows[i-1].Cells[0].Value = i;
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            getCounterData(2);
         }
     }
 }
