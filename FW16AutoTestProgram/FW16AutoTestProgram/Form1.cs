@@ -17,7 +17,6 @@ namespace FW16AutoTestProgram
         public EcrCtrl ecrCtrl;                 //подключение к ККТ
         public int[] counters = new int[22];    //массив счётчиков
         public int[] registers = new int[236];  //массив регистров
-        //public int[] emptyRegisters = new int[] { 6, 8, 20, 30, 40, 50, 56, 57, 58, 59, 70, 76, 77, 78, 79, 90, 100, 110, 126, 127, 128, 129, 190, 195, 196, 197, 198, 199, 207, 208, 209, 217, 218, 219, 227, 228, 229 };
 
         public Form1()
         {
@@ -60,8 +59,6 @@ namespace FW16AutoTestProgram
             dataGridView2.RowCount = 1;
             for (ushort i = 1; i <= 22; i++)
             {
-                //dataGridView2.Rows[i - 1].Cells[column].Value = ecrCtrl.Info.GetCounter(i);
-                //dataGridView2.Rows[i - 1].Cells[0].Value = i;
                 try
                 {
                     dataGridView2.Rows.Add(i, "", ecrCtrl.Info.GetCounter(i));  //Добавление строки в таблицу с данными счётчиков
@@ -76,9 +73,6 @@ namespace FW16AutoTestProgram
             dataGridView1.RowCount = 1;
             for (ushort i = 1; i <= 236; i++)
             {
-                //dataGridView1.Rows[i - 1].Cells[column].Value = ecrCtrl.Info.GetRegister(i);
-                //dataGridView1.Rows[i - 1].Cells[0].Value = i;
-                //if(Array.IndexOf(emptyRegisters,i)==-1)dataGridView1.Rows.Add(i, "", ecrCtrl.Info.GetRegister(i));
                 try
                 {
                     dataGridView1.Rows.Add(i, "", ecrCtrl.Info.GetRegister(i)); //добавление строки в тбалицу с данными регистров
