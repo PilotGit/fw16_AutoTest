@@ -32,20 +32,10 @@
             this.RateCB = new System.Windows.Forms.ComboBox();
             this.PortCB = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label_version = new System.Windows.Forms.Label();
+            this.label_firmware = new System.Windows.Forms.Label();
+            this.label_stats_connect = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.startValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.finishValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chekValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.startValueS2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.finishValueS2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.checkValueS2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -55,9 +45,24 @@
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.startValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.finishValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chekValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.startValueS2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.finishValueS2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.checkValueS2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label_id = new System.Windows.Forms.Label();
+            this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // Connect
@@ -88,12 +93,45 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label_id);
+            this.groupBox1.Controls.Add(this.label_version);
+            this.groupBox1.Controls.Add(this.label_firmware);
+            this.groupBox1.Controls.Add(this.label_stats_connect);
             this.groupBox1.Location = new System.Drawing.Point(13, 41);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(270, 539);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Данные о ККТ";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // label_version
+            // 
+            this.label_version.AutoSize = true;
+            this.label_version.Font = new System.Drawing.Font("Lucida Bright", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_version.Location = new System.Drawing.Point(6, 73);
+            this.label_version.Name = "label_version";
+            this.label_version.Size = new System.Drawing.Size(0, 17);
+            this.label_version.TabIndex = 2;
+            // 
+            // label_firmware
+            // 
+            this.label_firmware.AutoSize = true;
+            this.label_firmware.Font = new System.Drawing.Font("Lucida Bright", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_firmware.Location = new System.Drawing.Point(5, 46);
+            this.label_firmware.Name = "label_firmware";
+            this.label_firmware.Size = new System.Drawing.Size(0, 17);
+            this.label_firmware.TabIndex = 1;
+            // 
+            // label_stats_connect
+            // 
+            this.label_stats_connect.AutoSize = true;
+            this.label_stats_connect.Font = new System.Drawing.Font("Kristen ITC", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_stats_connect.Location = new System.Drawing.Point(6, 19);
+            this.label_stats_connect.Name = "label_stats_connect";
+            this.label_stats_connect.Size = new System.Drawing.Size(221, 27);
+            this.label_stats_connect.TabIndex = 0;
+            this.label_stats_connect.Text = "ККТ: не подключено";
             // 
             // groupBox2
             // 
@@ -107,111 +145,6 @@
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Тестирование";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(451, 19);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "label2";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 19);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "label1";
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.id,
-            this.name,
-            this.startValue,
-            this.finishValue,
-            this.chekValue,
-            this.startValueS2,
-            this.finishValueS2,
-            this.checkValueS2});
-            this.dataGridView1.Location = new System.Drawing.Point(7, 38);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(433, 368);
-            this.dataGridView1.TabIndex = 0;
-            // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(289, 459);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(893, 121);
-            this.listBox1.TabIndex = 5;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(1107, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // id
-            // 
-            this.id.HeaderText = "id";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Width = 30;
-            // 
-            // name
-            // 
-            this.name.HeaderText = "name";
-            this.name.Name = "name";
-            this.name.ReadOnly = true;
-            // 
-            // startValue
-            // 
-            this.startValue.HeaderText = "startValueS1";
-            this.startValue.Name = "startValue";
-            this.startValue.ReadOnly = true;
-            // 
-            // finishValue
-            // 
-            this.finishValue.HeaderText = "finishValueS1";
-            this.finishValue.Name = "finishValue";
-            this.finishValue.ReadOnly = true;
-            // 
-            // chekValue
-            // 
-            this.chekValue.HeaderText = "checkValueS1";
-            this.chekValue.Name = "chekValue";
-            this.chekValue.ReadOnly = true;
-            // 
-            // startValueS2
-            // 
-            this.startValueS2.HeaderText = "startValueS2";
-            this.startValueS2.Name = "startValueS2";
-            // 
-            // finishValueS2
-            // 
-            this.finishValueS2.HeaderText = "finishValueS2";
-            this.finishValueS2.Name = "finishValueS2";
-            this.finishValueS2.ReadOnly = true;
-            // 
-            // checkValueS2
-            // 
-            this.checkValueS2.HeaderText = "checkValueS2";
-            this.checkValueS2.Name = "checkValueS2";
-            this.checkValueS2.ReadOnly = true;
             // 
             // dataGridView2
             // 
@@ -282,6 +215,120 @@
             this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
             this.dataGridViewTextBoxColumn8.ReadOnly = true;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(451, 19);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "label2";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(7, 19);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "label1";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToResizeRows = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.id,
+            this.name,
+            this.startValue,
+            this.finishValue,
+            this.chekValue,
+            this.startValueS2,
+            this.finishValueS2,
+            this.checkValueS2});
+            this.dataGridView1.Location = new System.Drawing.Point(7, 38);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.Size = new System.Drawing.Size(433, 368);
+            this.dataGridView1.TabIndex = 0;
+            // 
+            // id
+            // 
+            this.id.HeaderText = "id";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Width = 30;
+            // 
+            // name
+            // 
+            this.name.HeaderText = "name";
+            this.name.Name = "name";
+            this.name.ReadOnly = true;
+            // 
+            // startValue
+            // 
+            this.startValue.HeaderText = "startValueS1";
+            this.startValue.Name = "startValue";
+            this.startValue.ReadOnly = true;
+            // 
+            // finishValue
+            // 
+            this.finishValue.HeaderText = "finishValueS1";
+            this.finishValue.Name = "finishValue";
+            this.finishValue.ReadOnly = true;
+            // 
+            // chekValue
+            // 
+            this.chekValue.HeaderText = "checkValueS1";
+            this.chekValue.Name = "chekValue";
+            this.chekValue.ReadOnly = true;
+            // 
+            // startValueS2
+            // 
+            this.startValueS2.HeaderText = "startValueS2";
+            this.startValueS2.Name = "startValueS2";
+            // 
+            // finishValueS2
+            // 
+            this.finishValueS2.HeaderText = "finishValueS2";
+            this.finishValueS2.Name = "finishValueS2";
+            this.finishValueS2.ReadOnly = true;
+            // 
+            // checkValueS2
+            // 
+            this.checkValueS2.HeaderText = "checkValueS2";
+            this.checkValueS2.Name = "checkValueS2";
+            this.checkValueS2.ReadOnly = true;
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(289, 459);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(893, 121);
+            this.listBox1.TabIndex = 5;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(1107, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label_id
+            // 
+            this.label_id.AutoSize = true;
+            this.label_id.Font = new System.Drawing.Font("Lucida Bright", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_id.Location = new System.Drawing.Point(6, 96);
+            this.label_id.Name = "label_id";
+            this.label_id.Size = new System.Drawing.Size(0, 17);
+            this.label_id.TabIndex = 3;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -296,10 +343,12 @@
             this.Controls.Add(this.Connect);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -333,6 +382,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn startValueS2;
         private System.Windows.Forms.DataGridViewTextBoxColumn finishValueS2;
         private System.Windows.Forms.DataGridViewTextBoxColumn checkValueS2;
+        private System.Windows.Forms.Label label_stats_connect;
+        private System.Windows.Forms.Label label_version;
+        private System.Windows.Forms.Label label_firmware;
+        private System.Windows.Forms.Label label_id;
     }
 }
 

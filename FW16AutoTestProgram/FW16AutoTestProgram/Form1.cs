@@ -33,7 +33,13 @@ namespace FW16AutoTestProgram
         {
             try
             {
+
                 ecrCtrl.Init(serialPort, baudRate);             //Подключчение по порту и частоте
+                label_stats_connect.Text = "ККТ: подключено";
+                label_version.Text = "Версия прошивки :" + ecrCtrl.Info.FactoryInfo.FwBuild;
+                label_firmware.Text = "Код firmware:" + ecrCtrl.Info.FactoryInfo.FwType;
+                label_id.Text = "Серийный номер ККТ:" + ecrCtrl.Info.EcrInfo.Id;
+                //MessageBox.Show(Convert.ToString( ecrCtrl.Info.));
             }
             catch (EcrException excep)
             {
@@ -86,6 +92,11 @@ namespace FW16AutoTestProgram
         {
             getCounterData();
             getRegisterrData();
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }
