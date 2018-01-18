@@ -24,9 +24,14 @@ namespace FW16AutoTestProgram
 
         private void ConnectButtonClick(object sender, EventArgs e)
         {
+            ConnectToFW();
+        }
+
+        void ConnectToFW(int serialPort=1, int baudRate=57600)
+        {
             try
             {
-                ecrCtrl.Init();
+                ecrCtrl.Init(serialPort,baudRate);
             }
             catch (EcrException excep)
             {
@@ -37,15 +42,9 @@ namespace FW16AutoTestProgram
             {
                 MessageBox.Show(excep.Message);
             }
-            CreateCheck();
         }
-        private void CreateCheck()
+        void ShowInformation()
         {
-            //ecrCtrl.Shift.Open();
-            var receipt = ecrCtrl.Shift.BeginReceipt("Касир", Fw16.Model.ReceiptKind.Income);
-            receipt.AddEntry(receipt.NewItemPriced("1", "Товар 1", Native.CmdExecutor.VatCodeType.Vat18, 10.50m, 0.5m));
-            receipt.AddPayment(Native.CmdExecutor.TenderCode.Cash, 10.25m);
-            receipt.Complete();
 
         }
     }
