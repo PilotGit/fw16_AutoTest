@@ -56,22 +56,33 @@ namespace FW16AutoTestProgram
 
         void getCounterData(int column)
         {
-            dataGridView2.RowCount = 22;
+            dataGridView2.RowCount = 1;
             for (ushort i = 1; i <= 22; i++)
             {
-                dataGridView2.Rows[i - 1].Cells[column].Value = ecrCtrl.Info.GetCounter(i);
-                dataGridView2.Rows[i - 1].Cells[0].Value = i;
+                //dataGridView2.Rows[i - 1].Cells[column].Value = ecrCtrl.Info.GetCounter(i);
+                //dataGridView2.Rows[i - 1].Cells[0].Value = i;
+                try
+                {
+                    dataGridView2.Rows.Add(i, "", ecrCtrl.Info.GetCounter(i));
+                }
+                catch { }
             }
         }
 
         void getRegisterrData(int column)
-        {//236
+        {
+            dataGridView1.RowCount = 1;
             for (ushort i = 1; i <= 236; i++)
-            {/*
-                dataGridView1.Rows[i - 1].Cells[column].Value = ecrCtrl.Info.GetRegister(i);
-                dataGridView1.Rows[i - 1].Cells[0].Value = i;
-                */
-                if(Array.IndexOf(emptyRegisters,i)==-1)dataGridView1.Rows.Add(i, "", ecrCtrl.Info.GetRegister(i));
+            {
+                //dataGridView1.Rows[i - 1].Cells[column].Value = ecrCtrl.Info.GetRegister(i);
+                //dataGridView1.Rows[i - 1].Cells[0].Value = i;
+                //if(Array.IndexOf(emptyRegisters,i)==-1)dataGridView1.Rows.Add(i, "", ecrCtrl.Info.GetRegister(i));
+                try
+                {
+                    dataGridView1.Rows.Add(i, "", ecrCtrl.Info.GetRegister(i));
+                }
+                catch {}
+
             }
         }
 
