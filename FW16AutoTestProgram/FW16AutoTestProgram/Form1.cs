@@ -18,8 +18,10 @@ namespace FW16AutoTestProgram
         public int[] counters = new int[22];    //массив счётчиков
         public int[] registers = new int[236];  //массив регистров
         string nameOerator = "test program";    //имя касира 
+        decimal[] coasts = new decimal[]{200m,200.78m};
+        decimal[] counts = new decimal[] { 1m, 5m, 0.3m, 1.7m };
 
-        Fw16.Ecr.ReceiptEntry[] receiptEntry = new Fw16.Ecr.ReceiptEntry[20];
+        Fw16.Ecr.ReceiptEntry[] receiptEntry = new Fw16.Ecr.ReceiptEntry[90];
 
         public Form1()
         {
@@ -92,15 +94,19 @@ namespace FW16AutoTestProgram
                 CustomerAddress = "adress@mail.ru",
                 SenderAddress = "sender@mail.ru"
             });
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 48; i++)
             {
-                receiptEntry[i] = document.NewItemCosted("1", "tovar", 1m, (Native.CmdExecutor.VatCodeType) (i+1), 200);
+                receiptEntry[i] = document.NewItemCosted(i.ToString(), "tovar "+i, counts[i/12], (Native.CmdExecutor.VatCodeType) ((i/2%6)+1), coasts[i%2]);
                 document.AddEntry(receiptEntry[i]);
+                textBox1.Text += "Добавлен " + "tovar " + i+"\r\n";
             }
-            for (int i = 5; i >= 0; i--)
+            decimal balance = Math.Round(document.Total/6,2);
+            for (int i = 5; i > 0; i--)
             {
-                document.AddPayment((Native.CmdExecutor.TenderCode)i, 200);
+                Math.Round(document.AddPayment((Native.CmdExecutor.TenderCode)i, balance));
             }
+            balance = document.Total - document.TotalaPaid;
+            document.AddPayment((Native.CmdExecutor.TenderCode)0, balance);
             document.Complete();
             MessageBox.Show("complete");
         }

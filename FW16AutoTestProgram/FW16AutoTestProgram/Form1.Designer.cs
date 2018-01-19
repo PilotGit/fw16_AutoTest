@@ -36,9 +36,9 @@
             this.label_version = new System.Windows.Forms.Label();
             this.label_firmware = new System.Windows.Forms.Label();
             this.label_stats_connect = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.button1 = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -118,14 +118,6 @@
             this.label_stats_connect.TabIndex = 0;
             this.label_stats_connect.Text = "ККТ: не подключено";
             // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(289, 41);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(893, 537);
-            this.listBox1.TabIndex = 5;
-            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(1022, 12);
@@ -143,14 +135,22 @@
             this.progressBar1.Size = new System.Drawing.Size(1169, 23);
             this.progressBar1.TabIndex = 7;
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(290, 42);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(892, 536);
+            this.textBox1.TabIndex = 8;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1192, 615);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.PortCB);
             this.Controls.Add(this.RateCB);
@@ -160,6 +160,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -169,13 +170,13 @@
         private System.Windows.Forms.ComboBox RateCB;
         private System.Windows.Forms.ComboBox PortCB;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label_stats_connect;
         private System.Windows.Forms.Label label_version;
         private System.Windows.Forms.Label label_firmware;
         private System.Windows.Forms.Label label_id;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 
