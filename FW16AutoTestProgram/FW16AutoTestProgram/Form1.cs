@@ -88,26 +88,38 @@ namespace FW16AutoTestProgram
         public void SimpleTest()
         {
             ecrCtrl.Shift.Open(nameOerator);
-            var document = ecrCtrl.Shift.BeginReceipt(nameOerator, Fw16.Model.ReceiptKind.Income, new
+
+            for (int testNumber = 0; testNumber < 3; testNumber+=2)
             {
-                Taxation = Fs.Native.TaxationType.Agro,
-                CustomerAddress = "adress@mail.ru",
-                SenderAddress = "sender@mail.ru"
-            });
-            for (int i = 0; i < 48; i++)
-            {
-                receiptEntry[i] = document.NewItemCosted(i.ToString(), "tovar "+i, counts[i/12], (Native.CmdExecutor.VatCodeType) ((i/2%6)+1), coasts[i%2]);
-                document.AddEntry(receiptEntry[i]);
-                textBox1.Text += "Добавлен " + "tovar " + i+"\r\n";
+
+                var document = ecrCtrl.Shift.BeginReceipt(nameOerator, Fw16.Model.ReceiptKind.Income, new
+                {
+                    Taxation = Fs.Native.TaxationType.Agro,
+                    CustomerAddress = "adress@mail.ru",
+                    SenderAddress = "sender@mail.ru"
+                });
+
+                for (int i = 0; i < 48; i++)
+                {
+                    receiptEntry[i] = document.NewItemCosted(i.ToString(), "tovar " + i, counts[i / 12], (Native.CmdExecutor.VatCodeType)((i / 2 % 6) + 1), coasts[i % 2]);
+                    document.AddEntry(receiptEntry[i]);
+                    textBox1.Text += "Добавлен " + "tovar " + i + "\r\n";
+                }
+
+                decimal balance = Math.Round(document.Total / 6, 2);                               //Сумма разделённая на количество типов оплаты.
+                for (int i = 5+testNumber; i > 0+testNumber; i--)
+                {
+                    Math.Round(document.AddPayment((Native.CmdExecutor.TenderCode)i, balance));
+                }
+
+                balance = document.Total - document.TotalaPaid;                                 //вычисление остатка суммы для оплаты 
+
+                document.AddPayment((Native.CmdExecutor.TenderCode)0, balance+testNumber);
+
+                document.Complete();
+
             }
-            decimal balance = Math.Round(document.Total/6,2);
-            for (int i = 5; i > 0; i--)
-            {
-                Math.Round(document.AddPayment((Native.CmdExecutor.TenderCode)i, balance));
-            }
-            balance = document.Total - document.TotalaPaid;
-            document.AddPayment((Native.CmdExecutor.TenderCode)0, balance);
-            document.Complete();
+            ecrCtrl.Shift.Close(nameOerator);
             MessageBox.Show("complete");
         }
     }
