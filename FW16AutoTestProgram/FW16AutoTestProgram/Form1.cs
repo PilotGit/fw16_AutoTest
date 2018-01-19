@@ -19,6 +19,8 @@ namespace FW16AutoTestProgram
         public int[] registers = new int[236];  //массив регистров
         string nameOerator = "test program";    //имя касира 
 
+        Fw16.Ecr.ReceiptEntry[] receiptEntry = new Fw16.Ecr.ReceiptEntry[20];
+
         public Form1()
         {
             InitializeComponent();
@@ -64,17 +66,43 @@ namespace FW16AutoTestProgram
 
         private void BeginTest(object sender, EventArgs e)
         { 
-            TestingClosedShift();
-        }
-
-        public void TestingClosedShift()
-        {
+            if((ecrCtrl.Info.Status & Fw16.Ecr.GeneralStatus.DocOpened) > 0)
+            {
+                ecrCtrl.Service.AbortDoc();
+            }
             if((ecrCtrl.Info.Status & Fw16.Ecr.GeneralStatus.ShiftOpened) > 0)
             {
                 ecrCtrl.Shift.Close(nameOerator);
             }
+            SimpleTest();
+        }
+
+        public void TestingClosedShift()
+        {
             ecrCtrl.Shift.Close(nameOerator);
             ecrCtrl.Shift.BeginCorrection(nameOerator, Fw16.Model.ReceiptKind.Income);
+        }
+
+        public void SimpleTest()
+        {
+            ecrCtrl.Shift.Open(nameOerator);
+            var document = ecrCtrl.Shift.BeginReceipt(nameOerator, Fw16.Model.ReceiptKind.Income, new
+            {
+                Taxation = Fs.Native.TaxationType.Agro,
+                CustomerAddress = "adress@mail.ru",
+                SenderAddress = "sender@mail.ru"
+            });
+            for (int i = 0; i < 6; i++)
+            {
+                receiptEntry[i] = document.NewItemCosted("1", "tovar", 1m, (Native.CmdExecutor.VatCodeType) (i+1), 200);
+                document.AddEntry(receiptEntry[i]);
+            }
+            for (int i = 5; i >= 0; i--)
+            {
+                document.AddPayment((Native.CmdExecutor.TenderCode)i, 200);
+            }
+            document.Complete();
+            MessageBox.Show("complete");
         }
     }
 }
