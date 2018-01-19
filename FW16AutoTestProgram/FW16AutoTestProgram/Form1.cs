@@ -67,7 +67,8 @@ namespace FW16AutoTestProgram
         }
 
         private void BeginTest(object sender, EventArgs e)
-        { 
+        {
+            ecrCtrl.Service.SetParameter(Native.CmdExecutor.ParameterCode.AbortDocFontSize, "51515");
             if((ecrCtrl.Info.Status & Fw16.Ecr.GeneralStatus.DocOpened) > 0)
             {
                 ecrCtrl.Service.AbortDoc();
@@ -76,6 +77,7 @@ namespace FW16AutoTestProgram
             {
                 ecrCtrl.Shift.Close(nameOerator);
             }
+
             SimpleTest();
         }
 
