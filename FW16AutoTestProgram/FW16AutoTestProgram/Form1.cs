@@ -74,9 +74,9 @@ namespace FW16AutoTestProgram
         public void Preparation()                                                                        //Функция подготовки к тестам
         {
             ecrCtrl.Service.SetParameter(Native.CmdExecutor.ParameterCode.AbortDocFontSize, "51515");    //отключение печати чека
-            if ((ecrCtrl.Info.Status & Fw16.Ecr.GeneralStatus.DocOpened) > 0)                            //закрыть документ если открыт
+            if ((ecrCtrl.Info.Status & Fw16.Ecr.GeneralStatus.DocOpened) > 0)
             {
-                ecrCtrl.Service.AbortDoc();
+                ecrCtrl.Service.AbortDoc();                                                              //закрыть документ если открыт
             }
             if ((ecrCtrl.Info.Status & Fw16.Ecr.GeneralStatus.ShiftOpened) > 0)                          //закрыть смену если открыта
             {
@@ -90,7 +90,7 @@ namespace FW16AutoTestProgram
             ecrCtrl.Shift.BeginCorrection(nameOerator, Fw16.Model.ReceiptKind.Income);
         }
 
-        public void SimpleTest()                                                                    //функция прогона по всем видам товаров и оплат
+        public void SimpleTest()                                                                    //функция прогона по всем видам чеков и чеков коррекции
         {
             ecrCtrl.Shift.Open(nameOerator);                                                        //открытие смены для этого теста
             for (int ReceptKind = 1; ReceptKind < 5; ReceptKind++)
@@ -107,7 +107,7 @@ namespace FW16AutoTestProgram
                     //создание товара
                     receiptEntry = document.NewItemCosted(i.ToString(), "tovar " + i, counts[i / 12], (Native.CmdExecutor.VatCodeType)((i / 2 % 6) + 1), coasts[i % 2]);
                     document.AddEntry(receiptEntry);                                                //добавления товара в чек
-                    textBox1.Text += "Добавлен " + "tovar " + i + "\r\n";
+                    //textBox1.Text += "Добавлен " + "tovar " + i + "\r\n";
                 }
                 decimal balance = Math.Round(document.Total / 8, 2);                                //Сумма разделённая на количество типов оплаты.
                 for (int i = 7; i > 0; i--)
@@ -117,9 +117,10 @@ namespace FW16AutoTestProgram
                 balance = document.Total - document.TotalaPaid;                                     //вычисление остатка суммы для оплаты 
                 document.AddPayment((Native.CmdExecutor.TenderCode)0, balance);                     //оплата наличнми
                 document.Complete();
+                textBox1.Text += "Оформлен чек " + (Fw16.Model.ReceiptKind)ReceptKind + "\r\n";
 
             }
-            for (int ReceptKind = 1; ReceptKind < 5; ReceptKind++)
+            for (int ReceptKind = 1; ReceptKind < 4; ReceptKind+=2)
             {
                 var document = ecrCtrl.Shift.BeginCorrection(nameOerator, (Fw16.Model.ReceiptKind)ReceptKind);
                 for (int i = 0; i < 7; i++)                                                         //перебор возврата средств всеми способами, целове и дробная суммы
@@ -132,7 +133,7 @@ namespace FW16AutoTestProgram
                     document.AddAmount((Fw16.Model.VatCode)((i / 2) % 6 + 1), coasts[i % 2]);
                 }
                 document.Complete();                                                                //закрытие смены
-
+                textBox1.Text += "Оформлен чек коррекции " + (Fw16.Model.ReceiptKind)ReceptKind+"\r\n";
             }
             ecrCtrl.Shift.Close(nameOerator);                                                       //закрытие смены этого теста
             //MessageBox.Show("complete");
