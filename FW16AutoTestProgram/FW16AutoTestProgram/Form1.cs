@@ -76,11 +76,11 @@ namespace FW16AutoTestProgram
             ecrCtrl.Service.SetParameter(Native.CmdExecutor.ParameterCode.AbortDocFontSize, "51515");    //отключение печати чека
             if ((ecrCtrl.Info.Status & Fw16.Ecr.GeneralStatus.DocOpened) > 0)
             {
-                ecrCtrl.Service.AbortDoc();                                                              //закрыть документ если открыт
+                ecrCtrl.Service.AbortDoc();
             }
             if ((ecrCtrl.Info.Status & Fw16.Ecr.GeneralStatus.ShiftOpened) > 0)                          //закрыть смену если открыта
             {
-                ecrCtrl.Shift.Close(nameOerator);
+                ecrCtrl.Shift.Close(nameOerator);                                                        //закрыть документ если открыт
             }
         }
 
@@ -90,15 +90,62 @@ namespace FW16AutoTestProgram
             ecrCtrl.Shift.BeginCorrection(nameOerator, Fw16.Model.ReceiptKind.Income);
         }
 
-        public void SimpleTest()                                                                    //функция прогона по всем видам чеков и чеков коррекции
+        public void SimpleTest()                            //функция прогона по всем видам чеков и чеков коррекции
         {
-            ecrCtrl.Shift.Open(nameOerator);                                                        //открытие смены для этого теста
+            ecrCtrl.Shift.Open(nameOerator);                //открытие смены для этого теста
+            //TestReceipt();                                  //вызов функции тестирования чека
+            TestCorrection();                               //вызов функции тестирования чека коррекции
+            //TestNonFiscal();                                //вызов функции нефискального документа
+            ecrCtrl.Shift.Close(nameOerator);               //закрытие смены этого теста
+            //MessageBox.Show("complete");
+        }
+
+        private void TestNonFiscal()                                                               //тест нефискального документа
+        {
+            for (int nfdType = 1; nfdType < 4; nfdType++)                                          //Перебор типов нефиксальных документов
+            {
+                var document = ecrCtrl.Shift.BeginNonFiscal((Native.CmdExecutor.NFDocType)nfdType); //открытие нефиксального документа
+                for (int i = 0; i < 14 && nfdType < 3; i++)                                                        //
+                {
+                    var tender = new Fw16.Model.Tender();
+                    tender.Amount = coasts[i / 7];
+                    tender.Code = (Native.CmdExecutor.TenderCode)(i % 7);
+                    document.AddTender(tender);
+                }
+                document.PrintText("Тестовый текст теста текстовго нефиксального документа");
+                document.Complete(Native.CmdExecutor.DocEndMode.Default);                                                                //закрытие нефиксального документа
+                textBox1.Text += "Оформлен нефиксальный документ " + (Native.CmdExecutor.NFDocType)nfdType + "\r\n";
+            }
+        }
+
+        private void TestCorrection()
+        {
+            for (int ReceptKind = 1; ReceptKind < 4; ReceptKind += 2)
+            {
+                var document = ecrCtrl.Shift.BeginCorrection(nameOerator, (Fw16.Model.ReceiptKind)ReceptKind);
+                for (int i = 0; i < 7; i++)                                                         //перебор возврата средств всеми способами, целове и дробная суммы
+                {
+                    document.AddTender((Native.CmdExecutor.TenderCode)(i / 2), coasts[i % 2]);
+                }
+
+                for (int i = 0; i < 7; i++)                                                         //перебор налоговых ставок
+                {
+                    document.AddAmount((Fw16.Model.VatCode)((i / 2) % 6 + 1), coasts[i % 2]);
+                }
+                document.Complete();                                                                //закрытие чека корректировки
+                textBox1.Text += "Оформлен чек коррекции " + (Fw16.Model.ReceiptKind)ReceptKind + "\r\n";
+            }
+
+        }
+
+        private void TestReceipt()
+        {
             for (int ReceptKind = 1; ReceptKind < 5; ReceptKind++)
             {
                 var document = ecrCtrl.Shift.BeginReceipt(nameOerator, (Fw16.Model.ReceiptKind)ReceptKind, new
                 {
                     Taxation = Fs.Native.TaxationType.Agro,
-                    CustomerAddress = "adress@mail.ru",
+                    CustomerAddress = "we19989@mail.ru",
                     SenderAddress = "sender@mail.ru"
                 });
                 Fw16.Ecr.ReceiptEntry receiptEntry;
@@ -118,25 +165,7 @@ namespace FW16AutoTestProgram
                 document.AddPayment((Native.CmdExecutor.TenderCode)0, balance);                     //оплата наличнми
                 document.Complete();
                 textBox1.Text += "Оформлен чек " + (Fw16.Model.ReceiptKind)ReceptKind + "\r\n";
-
             }
-            for (int ReceptKind = 1; ReceptKind < 4; ReceptKind+=2)
-            {
-                var document = ecrCtrl.Shift.BeginCorrection(nameOerator, (Fw16.Model.ReceiptKind)ReceptKind);
-                for (int i = 0; i < 7; i++)                                                         //перебор возврата средств всеми способами, целове и дробная суммы
-                {
-                    document.AddTender((Native.CmdExecutor.TenderCode)(i / 2), coasts[i % 2]);
-                }
-
-                for (int i = 0; i < 7; i++)                                                         //перебор налоговых ставок
-                {
-                    document.AddAmount((Fw16.Model.VatCode)((i / 2) % 6 + 1), coasts[i % 2]);
-                }
-                document.Complete();                                                                //закрытие смены
-                textBox1.Text += "Оформлен чек коррекции " + (Fw16.Model.ReceiptKind)ReceptKind+"\r\n";
-            }
-            ecrCtrl.Shift.Close(nameOerator);                                                       //закрытие смены этого теста
-            //MessageBox.Show("complete");
         }
     }
 }
