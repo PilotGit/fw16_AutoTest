@@ -32,19 +32,20 @@
             this.RateCB = new System.Windows.Forms.ComboBox();
             this.PortCB = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label_id = new System.Windows.Forms.Label();
-            this.label_version = new System.Windows.Forms.Label();
-            this.label_firmware = new System.Windows.Forms.Label();
-            this.label_stats_connect = new System.Windows.Forms.Label();
+            this.modelL = new System.Windows.Forms.Label();
+            this.idL = new System.Windows.Forms.Label();
+            this.versionL = new System.Windows.Forms.Label();
+            this.firmwareL = new System.Windows.Forms.Label();
+            this.statsConnectL = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.LogTB = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // Connect
             // 
-            this.Connect.Location = new System.Drawing.Point(267, 12);
+            this.Connect.Location = new System.Drawing.Point(267, 27);
             this.Connect.Name = "Connect";
             this.Connect.Size = new System.Drawing.Size(108, 23);
             this.Connect.TabIndex = 0;
@@ -55,7 +56,7 @@
             // RateCB
             // 
             this.RateCB.FormattingEnabled = true;
-            this.RateCB.Location = new System.Drawing.Point(140, 12);
+            this.RateCB.Location = new System.Drawing.Point(140, 27);
             this.RateCB.Name = "RateCB";
             this.RateCB.Size = new System.Drawing.Size(121, 21);
             this.RateCB.TabIndex = 1;
@@ -63,64 +64,78 @@
             // PortCB
             // 
             this.PortCB.FormattingEnabled = true;
-            this.PortCB.Location = new System.Drawing.Point(13, 12);
+            this.PortCB.Location = new System.Drawing.Point(12, 27);
             this.PortCB.Name = "PortCB";
             this.PortCB.Size = new System.Drawing.Size(121, 21);
             this.PortCB.TabIndex = 2;
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label_id);
-            this.groupBox1.Controls.Add(this.label_version);
-            this.groupBox1.Controls.Add(this.label_firmware);
-            this.groupBox1.Controls.Add(this.label_stats_connect);
-            this.groupBox1.Location = new System.Drawing.Point(13, 41);
+            this.groupBox1.Controls.Add(this.modelL);
+            this.groupBox1.Controls.Add(this.idL);
+            this.groupBox1.Controls.Add(this.versionL);
+            this.groupBox1.Controls.Add(this.firmwareL);
+            this.groupBox1.Controls.Add(this.statsConnectL);
+            this.groupBox1.Location = new System.Drawing.Point(13, 66);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(270, 537);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Данные о ККТ";
             // 
-            // label_id
+            // modelL
             // 
-            this.label_id.AutoSize = true;
-            this.label_id.Font = new System.Drawing.Font("Lucida Bright", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_id.Location = new System.Drawing.Point(6, 96);
-            this.label_id.Name = "label_id";
-            this.label_id.Size = new System.Drawing.Size(0, 17);
-            this.label_id.TabIndex = 3;
+            this.modelL.AutoSize = true;
+            this.modelL.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.modelL.Location = new System.Drawing.Point(6, 130);
+            this.modelL.Name = "modelL";
+            this.modelL.Size = new System.Drawing.Size(61, 16);
+            this.modelL.TabIndex = 4;
+            this.modelL.Text = "Модель:";
             // 
-            // label_version
+            // idL
             // 
-            this.label_version.AutoSize = true;
-            this.label_version.Font = new System.Drawing.Font("Lucida Bright", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_version.Location = new System.Drawing.Point(6, 73);
-            this.label_version.Name = "label_version";
-            this.label_version.Size = new System.Drawing.Size(0, 17);
-            this.label_version.TabIndex = 2;
+            this.idL.AutoSize = true;
+            this.idL.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.idL.Location = new System.Drawing.Point(6, 101);
+            this.idL.Name = "idL";
+            this.idL.Size = new System.Drawing.Size(149, 16);
+            this.idL.TabIndex = 3;
+            this.idL.Text = "Серийный номер ККТ:";
             // 
-            // label_firmware
+            // versionL
             // 
-            this.label_firmware.AutoSize = true;
-            this.label_firmware.Font = new System.Drawing.Font("Lucida Bright", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_firmware.Location = new System.Drawing.Point(5, 46);
-            this.label_firmware.Name = "label_firmware";
-            this.label_firmware.Size = new System.Drawing.Size(0, 17);
-            this.label_firmware.TabIndex = 1;
+            this.versionL.AutoSize = true;
+            this.versionL.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.versionL.Location = new System.Drawing.Point(6, 72);
+            this.versionL.Name = "versionL";
+            this.versionL.Size = new System.Drawing.Size(125, 16);
+            this.versionL.TabIndex = 2;
+            this.versionL.Text = "Версия прошивки:";
             // 
-            // label_stats_connect
+            // firmwareL
             // 
-            this.label_stats_connect.AutoSize = true;
-            this.label_stats_connect.Font = new System.Drawing.Font("Kristen ITC", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_stats_connect.Location = new System.Drawing.Point(6, 19);
-            this.label_stats_connect.Name = "label_stats_connect";
-            this.label_stats_connect.Size = new System.Drawing.Size(221, 27);
-            this.label_stats_connect.TabIndex = 0;
-            this.label_stats_connect.Text = "ККТ: не подключено";
+            this.firmwareL.AutoSize = true;
+            this.firmwareL.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.firmwareL.Location = new System.Drawing.Point(6, 43);
+            this.firmwareL.Name = "firmwareL";
+            this.firmwareL.Size = new System.Drawing.Size(88, 16);
+            this.firmwareL.TabIndex = 1;
+            this.firmwareL.Text = "Код firmware:";
+            // 
+            // statsConnectL
+            // 
+            this.statsConnectL.AutoSize = true;
+            this.statsConnectL.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.statsConnectL.Location = new System.Drawing.Point(44, 16);
+            this.statsConnectL.Name = "statsConnectL";
+            this.statsConnectL.Size = new System.Drawing.Size(181, 20);
+            this.statsConnectL.TabIndex = 0;
+            this.statsConnectL.Text = "ККТ: не подключено";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(1022, 12);
+            this.button1.Location = new System.Drawing.Point(1020, 27);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(160, 23);
             this.button1.TabIndex = 6;
@@ -135,21 +150,21 @@
             this.progressBar1.Size = new System.Drawing.Size(1169, 23);
             this.progressBar1.TabIndex = 7;
             // 
-            // textBox1
+            // LogTB
             // 
-            this.textBox1.Location = new System.Drawing.Point(290, 42);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(892, 536);
-            this.textBox1.TabIndex = 8;
+            this.LogTB.Location = new System.Drawing.Point(288, 66);
+            this.LogTB.Multiline = true;
+            this.LogTB.Name = "LogTB";
+            this.LogTB.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.LogTB.Size = new System.Drawing.Size(892, 536);
+            this.LogTB.TabIndex = 8;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1192, 615);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.LogTB);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
@@ -172,12 +187,13 @@
         private System.Windows.Forms.ComboBox PortCB;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label_stats_connect;
-        private System.Windows.Forms.Label label_version;
-        private System.Windows.Forms.Label label_firmware;
-        private System.Windows.Forms.Label label_id;
+        private System.Windows.Forms.Label statsConnectL;
+        private System.Windows.Forms.Label versionL;
+        private System.Windows.Forms.Label firmwareL;
+        private System.Windows.Forms.Label idL;
         private System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox LogTB;
+        private System.Windows.Forms.Label modelL;
     }
 }
 
