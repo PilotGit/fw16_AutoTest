@@ -174,6 +174,7 @@ namespace FW16AutoTestProgram
                 }
                 catch (Exception)
                 {
+                    LogTB.Text += "Не удолось получить доступ к регистру №" + i;
                 }
             }
             LogTB.Text += "Запрошены данные с регистров с " + startIndex + " по " + endIndex + "\r\n";     //логирование
@@ -190,6 +191,7 @@ namespace FW16AutoTestProgram
                 }
                 catch (Exception)
                 {
+                    LogTB.Text += "Не удолось получить доступ к счётчику №" + i;
                 }
             }
             LogTB.Text += "Запрошены данные с счётчиков с " + startIndex + " по " + endIndex + "\r\n";     //логирование
