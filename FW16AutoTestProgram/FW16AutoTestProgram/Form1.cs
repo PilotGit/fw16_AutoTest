@@ -67,7 +67,6 @@ namespace FW16AutoTestProgram
         private void BeginTest(object sender, EventArgs e)
         {
             Preparation();
-
             SimpleTest();
             RequestRegisters();
             RequestCounters();
@@ -75,6 +74,8 @@ namespace FW16AutoTestProgram
 
         public void Preparation()                                                                        //Функция подготовки к тестам
         {
+            RequestRegisters();
+            RequestCounters();
             ecrCtrl.Service.SetParameter(Native.CmdExecutor.ParameterCode.AbortDocFontSize, "51515");    //отключение печати чека
             if ((ecrCtrl.Info.Status & Fw16.Ecr.GeneralStatus.DocOpened) > 0)
             {
@@ -174,13 +175,13 @@ namespace FW16AutoTestProgram
                 }
                 catch (Exception)
                 {
-                    LogTB.Text += "Не удолось получить доступ к регистру №" + i;
+                    LogTB.Text += "Не удолось получить доступ к регистру №" + i+"\r\n";
                 }
             }
             LogTB.Text += "Запрошены данные с регистров с " + startIndex + " по " + endIndex + "\r\n";     //логирование
         }
 
-        public void RequestCounters(ushort startIndex = 0, ushort endIndex = 0)        //запрос значений всех счётчиков / начиная с индекса / в диапозоне [startIndex,endIndex)
+        public void RequestCounters(ushort startIndex = 1, ushort endIndex = 0)        //запрос значений всех счётчиков / начиная с индекса / в диапозоне [startIndex,endIndex)
         {
             endIndex = endIndex > 0 ? endIndex : Properties.Settings.Default.CountCounters;
             for (ushort i = startIndex; i < endIndex; i++)
@@ -191,7 +192,7 @@ namespace FW16AutoTestProgram
                 }
                 catch (Exception)
                 {
-                    LogTB.Text += "Не удолось получить доступ к счётчику №" + i;
+                    LogTB.Text += "Не удолось получить доступ к счётчику №" + i+"\r\n";
                 }
             }
             LogTB.Text += "Запрошены данные с счётчиков с " + startIndex + " по " + endIndex + "\r\n";     //логирование
