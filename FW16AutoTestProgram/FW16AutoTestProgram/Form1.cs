@@ -129,9 +129,8 @@ namespace FW16AutoTestProgram
                     document.AddAmount((Fw16.Model.VatCode)((i / 2) % 6 + 1), coasts[i % 2]);
                 }
                 document.Complete();                                                                //закрытие чека корректировки
-                textBox1.Text += "Оформлен чек коррекции " + (Fw16.Model.ReceiptKind)ReceptKind + "\r\n";
+                textBox1.Text += "Оформлен чек коррекции " + (Fw16.Model.ReceiptKind)ReceptKind + "\r\n"; //логирование
             }
-
         }
 
         private void TestReceipt()
@@ -159,8 +158,9 @@ namespace FW16AutoTestProgram
                 }
                 balance = document.Total - document.TotalaPaid;                                     //вычисление остатка суммы для оплаты 
                 document.AddPayment((Native.CmdExecutor.TenderCode)0, balance);                     //оплата наличнми
+                RequestRegisters(160, 181);                                                         //запрос регистров по открытому документу
                 document.Complete();
-                textBox1.Text += "Оформлен чек " + (Fw16.Model.ReceiptKind)ReceptKind + "\r\n";
+                textBox1.Text += "Оформлен чек " + (Fw16.Model.ReceiptKind)ReceptKind + "\r\n";     //логирование
             }
         }
 
@@ -176,6 +176,7 @@ namespace FW16AutoTestProgram
                 {
                 }
             }
+            textBox1.Text += "Запрошены данные с регистров с " + startIndex + "по" + endIndex + "\r\n";     //логирование
         }
         public void RequestCounters(ushort startIndex = 0, ushort endIndex = 22)        //запрос значений всех счётчиков / начиная с индекса / в диапозоне [startIndex,endIndex)
         {
@@ -189,6 +190,7 @@ namespace FW16AutoTestProgram
                 {
                 }
             }
+            textBox1.Text += "Запрошены данные с счётчиков с " + startIndex + "по" + endIndex + "\r\n";     //логирование
         }
 
     }
