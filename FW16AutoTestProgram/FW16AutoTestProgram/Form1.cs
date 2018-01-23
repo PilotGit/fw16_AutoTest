@@ -68,8 +68,6 @@ namespace FW16AutoTestProgram
         {
             Preparation();
             SimpleTest();
-            RequestRegisters();
-            RequestCounters();
         }
 
         public void Preparation()                                                                        //Функция подготовки к тестам
@@ -79,11 +77,11 @@ namespace FW16AutoTestProgram
             ecrCtrl.Service.SetParameter(Native.CmdExecutor.ParameterCode.AbortDocFontSize, "51515");    //отключение печати чека
             if ((ecrCtrl.Info.Status & Fw16.Ecr.GeneralStatus.DocOpened) > 0)
             {
-                ecrCtrl.Service.AbortDoc();
+                ecrCtrl.Service.AbortDoc();                                                             //закрыть документ если открыт
             }
-            if ((ecrCtrl.Info.Status & Fw16.Ecr.GeneralStatus.ShiftOpened) > 0)                          //закрыть смену если открыта
+            if ((ecrCtrl.Info.Status & Fw16.Ecr.GeneralStatus.ShiftOpened) > 0)
             {
-                ecrCtrl.Shift.Close(nameOerator);                                                        //закрыть документ если открыт
+                ecrCtrl.Shift.Close(nameOerator);                                                       //закрыть смену если открыта
             }
         }
 
@@ -94,6 +92,10 @@ namespace FW16AutoTestProgram
             TestCorrection();                               //вызов функции тестирования чека коррекции
             TestNonFiscal();                                //вызов функции нефискального документа
             ecrCtrl.Shift.Close(nameOerator);               //закрытие смены этого теста
+
+            RequestRegisters();
+            RequestCounters();
+
             LogTB.Text += "Завершено тестирование SimpleTest \r\n";     //логирование
         }
 
@@ -120,14 +122,17 @@ namespace FW16AutoTestProgram
             for (int ReceptKind = 1; ReceptKind < 4; ReceptKind += 2)
             {
                 var document = ecrCtrl.Shift.BeginCorrection(nameOerator, (Fw16.Model.ReceiptKind)ReceptKind);
+                decimal sum = 0;
                 for (int i = 0; i < 7; i++)                                                                         //перебор возврата средств всеми способами, целове и дробная суммы
                 {
                     document.AddTender((Native.CmdExecutor.TenderCode)(i / 2), coasts[i % 2]);
+                    sum += coasts[i % 2];
                 }
-                for (int i = 0; i < 7; i++)                                                                         //перебор налоговых ставок
+                for (int i = 0; i < 5; i++)                                                                         //перебор налоговых ставок
                 {
-                    document.AddAmount((Fw16.Model.VatCode)((i / 2) % 6 + 1), coasts[i % 2]);
+                    document.AddAmount((Fw16.Model.VatCode)((i / 2) + 1), Math.Round(sum/6,2));
                 }
+                document.AddAmount(Fw16.Model.VatCode.NoVat, sum - Math.Round(sum / 6, 2) * 5);
                 document.Complete();                                                                                //закрытие чека корректировки
                 LogTB.Text += "Оформлен чек коррекции типа " + (Fw16.Model.ReceiptKind)ReceptKind + "\r\n";      //логирование
             }
@@ -140,8 +145,8 @@ namespace FW16AutoTestProgram
                 var document = ecrCtrl.Shift.BeginReceipt(nameOerator, (Fw16.Model.ReceiptKind)ReceptKind, new
                 {
                     Taxation = Fs.Native.TaxationType.Agro,     //налогообложение по умолчанию
-                    CustomerAddress = "we19989@mail.ru",        //адрес получателя
-                    SenderAddress = "sender@mail.ru"            //адрес отправтеля
+                    CustomerAddress = Properties.Settings.Default.customEmail,        //адрес получателя
+                    SenderAddress = Properties.Settings.Default.senderEmail            //адрес отправтеля
                 });
                 Fw16.Ecr.ReceiptEntry receiptEntry;
                 for (int i = 0; i < 48; i++)

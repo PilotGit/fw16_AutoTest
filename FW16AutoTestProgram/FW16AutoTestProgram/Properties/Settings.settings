@@ -8,5 +8,11 @@
     <Setting Name="CountCounters" Type="System.UInt16" Scope="User">
       <Value Profile="(Default)">22</Value>
     </Setting>
+    <Setting Name="senderEmail" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="customEmail" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -46,5 +46,29 @@ namespace FW16AutoTestProgram.Properties {
                 this["CountCounters"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string senderEmail {
+            get {
+                return ((string)(this["senderEmail"]));
+            }
+            set {
+                this["senderEmail"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string customEmail {
+            get {
+                return ((string)(this["customEmail"]));
+            }
+            set {
+                this["customEmail"] = value;
+            }
+        }
     }
 }
