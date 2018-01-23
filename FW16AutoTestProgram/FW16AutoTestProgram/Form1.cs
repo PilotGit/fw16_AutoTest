@@ -69,6 +69,8 @@ namespace FW16AutoTestProgram
             Preparation();
 
             SimpleTest();
+            RequestRegisters();
+            RequestCounters();
         }
 
         public void Preparation()                                                                        //Функция подготовки к тестам
@@ -84,18 +86,12 @@ namespace FW16AutoTestProgram
             }
         }
 
-        public void TestingClosedShift()
-        {
-            ecrCtrl.Shift.Close(nameOerator);
-            ecrCtrl.Shift.BeginCorrection(nameOerator, Fw16.Model.ReceiptKind.Income);
-        }
-
         public void SimpleTest()                            //функция прогона по всем видам чеков и чеков коррекции
         {
             ecrCtrl.Shift.Open(nameOerator);                //открытие смены для этого теста
-            //TestReceipt();                                  //вызов функции тестирования чека
+            TestReceipt();                                  //вызов функции тестирования чека
             TestCorrection();                               //вызов функции тестирования чека коррекции
-            //TestNonFiscal();                                //вызов функции нефискального документа
+            TestNonFiscal();                                //вызов функции нефискального документа
             ecrCtrl.Shift.Close(nameOerator);               //закрытие смены этого теста
             //MessageBox.Show("complete");
         }
@@ -167,5 +163,33 @@ namespace FW16AutoTestProgram
                 textBox1.Text += "Оформлен чек " + (Fw16.Model.ReceiptKind)ReceptKind + "\r\n";
             }
         }
+
+        public void RequestRegisters(ushort startIndex = 0, ushort endIndex = 236)      //запрос значений всех регистров / начиная с индекса / в диапозоне [startIndex,endIndex) 
+        {
+            for (ushort i = 0; i < 236; i++)
+            {
+                try
+                {
+                    ecrCtrl.Info.GetRegister(i);
+                }
+                catch (Exception)
+                {
+                }
+            }
+        }
+        public void RequestCounters(ushort startIndex = 0, ushort endIndex = 22)        //запрос значений всех счётчиков / начиная с индекса / в диапозоне [startIndex,endIndex)
+        {
+            for (ushort i = startIndex; i < endIndex; i++)
+            {
+                try
+                {
+                    ecrCtrl.Info.GetCounter(i);
+                }
+                catch (Exception)
+                {
+                }
+            }
+        }
+
     }
 }
