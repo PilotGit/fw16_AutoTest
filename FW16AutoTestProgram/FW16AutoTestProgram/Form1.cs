@@ -134,7 +134,7 @@ namespace FW16AutoTestProgram
                 }
                 document.AddAmount(Fw16.Model.VatCode.NoVat, sum - Math.Round(sum / 6, 2) * 5);
                 document.Complete();                                                                                //закрытие чека корректировки
-                LogTB.Text += "Оформлен чек коррекции типа " + (Fw16.Model.ReceiptKind)ReceptKind + "\r\n";      //логирование
+                LogTB.Text += "Оформлен чек коррекции типа " + (Fw16.Model.ReceiptKind)ReceptKind + "\r\n";         //логирование
             }
         }
 
