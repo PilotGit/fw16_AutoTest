@@ -53,6 +53,7 @@ namespace FW16AutoTestProgram
             //}
             //catch (System.UnauthorizedAccessException excep)
             //{
+            //09
             //    MessageBox.Show(excep.Message);                 //вывод ошибки доступа порта
             //}
             catch(Exception ex)
