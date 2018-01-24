@@ -24,7 +24,8 @@ namespace FW16AutoTestProgram
         public Form1()
         {
             InitializeComponent();
-            ecrCtrl = new EcrCtrl();
+            //ecrCtrl = new EcrCtrl();
+            ecrCtrl = null;
         }
 
         private void ConnectButtonClick(object sender, EventArgs e)
@@ -36,21 +37,31 @@ namespace FW16AutoTestProgram
         {
             try
             {
+                System.Diagnostics.Debug.Assert(ecrCtrl == null);
+                ecrCtrl = new EcrCtrl();
                 ecrCtrl.Init(serialPort, baudRate);             //Подключчение по порту и частоте
                 ShowInformation();
             }
-            catch (EcrException excep)
+            //catch (EcrException excep)
+            //{
+            //    ecrCtrl.Reconnect();                            //Переподключение в случае попытки повторного подключения
+            //    System.Diagnostics.Debug.Write(excep.Message);
+            //}
+            //catch (System.IO.IOException excep)
+            //{
+            //    MessageBox.Show(excep.Message);                 //вывод ошибки неверного порта
+            //}
+            //catch (System.UnauthorizedAccessException excep)
+            //{
+            //    MessageBox.Show(excep.Message);                 //вывод ошибки доступа порта
+            //}
+            catch(Exception ex)
             {
-                ecrCtrl.Reconnect();                            //Переподключение в случае попытки повторного подключения
-                System.Diagnostics.Debug.Write(excep.Message);
-            }
-            catch (System.IO.IOException excep)
-            {
-                MessageBox.Show(excep.Message);                 //вывод ошибки неверного порта
-            }
-            catch (System.UnauthorizedAccessException excep)
-            {
-                MessageBox.Show(excep.Message);                 //вывод ошибки доступа порта
+                //вывод ЛЮБОЙ ошибки. Обычно, в программах типа "утилита" это бывает лучшим решением, чем фильтрация exception'ов
+                MessageBox.Show(this, ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //экземпляр EcrCtrl сделан "одноразовым". То есть, для повторного Init нужен другой экземпляр EcrCtrl. Пожтому "неудачный" экземпляр удаляем.
+                (ecrCtrl as IDisposable).Dispose();
+                ecrCtrl = null; 
             }
 
         }
