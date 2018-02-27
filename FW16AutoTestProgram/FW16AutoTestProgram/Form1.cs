@@ -51,7 +51,33 @@ namespace FW16AutoTestProgram
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ecrCtrl.Commands.BeginOfdRead().
+            MessageBox.Show(ecrCtrl.Fw16.FsDirect.GetFsStatus().LastDocNum.ToString());
+            MessageBox.Show(ecrCtrl.Fw16.FsDirect.GetFsStatus().FsId.ToString());
+            if (ecrCtrl.Fw16.FsDirect.GetFsStatus().LastDocNum > 0)
+            {
+                if(ecrCtrl.Fw16.FsDirect is Fs.Native.IArchive fsArc)
+                {
+                    if(fsArc.GetDocument(1, out Fs.Native.ArchiveDoc ad) != Fs.Native.FsAnswer.Success)
+                        throw new Exception("ТУТА АШАБКА!");
+                    if(ad.Data is Fs.Native.ArcRegChange rch)
+                    {
+                        rch.Base.Taxations.ToString();
+                    }
+                    else if(ad.Data is Fs.Native.ArcReg)
+                    {
+
+                    }
+                    else if (ad.Data is Fs.Native.ArcReceipt rcpt)
+                    {
+                        rcpt.Total;
+                    }
+                }
+            }
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            (ecrCtrl as IDisposable).Dispose();
         }
     }
 }
