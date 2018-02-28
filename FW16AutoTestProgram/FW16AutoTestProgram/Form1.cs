@@ -54,25 +54,26 @@ namespace FW16AutoTestProgram
             MessageBox.Show(ecrCtrl.Fw16.FsDirect.GetFsStatus().LastDocNum.ToString());
             MessageBox.Show(ecrCtrl.Fw16.FsDirect.GetFsStatus().FsId.ToString());
             if (ecrCtrl.Fw16.FsDirect.GetFsStatus().LastDocNum > 0)
-            {
-                if(ecrCtrl.Fw16.FsDirect is Fs.Native.IArchive fsArc)
+                for (uint i = 0; i < ecrCtrl.Fw16.FsDirect.GetFsStatus().LastDocNum; i++)
                 {
-                    if(fsArc.GetDocument(1, out Fs.Native.ArchiveDoc ad) != Fs.Native.FsAnswer.Success)
-                        throw new Exception("ТУТА АШАБКА!");
-                    if(ad.Data is Fs.Native.ArcRegChange rch)
+                    if(ecrCtrl.Fw16.FsDirect is Fs.Native.IArchive fsArc)
                     {
-                        rch.Base.Taxations.ToString();
-                    }
-                    else if(ad.Data is Fs.Native.ArcReg)
-                    {
-
-                    }
-                    else if (ad.Data is Fs.Native.ArcReceipt rcpt)
-                    {
-                        rcpt.Total;
+                        if(fsArc.GetDocument(i+1, out Fs.Native.ArchiveDoc ad) != Fs.Native.FsAnswer.Success)
+                            throw new Exception("ТУТА АШАБКА!");
+                        if(ad.Data is Fs.Native.ArcRegChange rch)
+                        {
+                            listBox1.Items.Add(rch.Base.RegId.ToString());
+                        }
+                        else if(ad.Data is Fs.Native.ArcReg)
+                        {
+                            listBox1.Items.Add("arc");
+                        }
+                        else if (ad.Data is Fs.Native.ArcReceipt rcpt)
+                        {
+                            listBox1.Text += rcpt.Total.ToString();
+                        }
                     }
                 }
-            }
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
